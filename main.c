@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include "cblas/cblas.h"
+#include "matrix.h"
+
+double stateData[] = {1, 2, 3, 3, 1, 4, 0};
+double targeData[] = {4, 4, 4, 4, 4, 4, 0};
 
 void main(void) {
-    float vecA[] = {1, 2, 3};
-    float vecB[] = {3, 1, 2};
-    float dot = cblas_sdot(3, vecA, 1, vecB, 1);
-    printf("Dot product: %f\n", dot);
+    AdMatrix state;
+    AdMatrix target;
+    printf("%d\n", AdMatrixAlloc(&state, 7, 1, stateData));
+    printf("%d\n", AdMatrixAlloc(&target, 7, 1, targeData));
+    printf("Dot: %g\n", AdDotProduct(state, target));
 }
