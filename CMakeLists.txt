@@ -16,5 +16,5 @@ project("aideen" VERSION ${AIDEEN_VERSION} DESCRIPTION ${AIDEEN_DESCRIPTION} LAN
 
 find_library(CBLAS_LIBRARY cblas REQUIRED)
 
-add_executable(${AIDEEN_TEST_EXECUTABLE} main.c matrix.c)
+add_executable(${AIDEEN_TEST_EXECUTABLE} main.c aideen.c)
 target_link_libraries(${AIDEEN_TEST_EXECUTABLE} PRIVATE ${CBLAS_LIBRARY})
