@@ -1,0 +1,85 @@
+/**
+ * \file version.h
+ *
+ * Functions, macros, and definitions used to access and manipulate
+ * information about the version of Aideen.
+ *
+ * \author H Paterson.
+ * \copyright BSL-1.0.
+ */
+
+#include <stdint.h>
+
+/**
+ * \typedef AdVersionField
+ *
+ * Field used for storing the major, minor, or patch number of n Aideen build.
+ */
+typedef uint16_t AdVersionField;
+
+/**
+ * \def AD_MAJOR_VERSION
+ * 
+ * Major version of the Aideen build.
+ */
+#define AD_MAJOR_VERSION ((AdVersionField) @AIDEEN_MAJOR_VERSION@)
+
+/**
+ * \def AD_MINOR_VERSION
+ * 
+ * Minor version of the Aideen build.
+ */
+#define AD_MINOR_VERSION ((AdVersionField) @AIDEEN_MINOR_VERSION@)
+
+/**
+ * \def AD_PATCH_VERSION
+ * 
+ * Patch version of the Aideen build.
+ */
+#define AD_PATCH_VERSION ((AdVersionField) @AIDEEN_PATCH_VERSION@)
+
+/**
+ * \def AD_VERSION
+ *
+ * Version code of the Aideen build.
+ */
+#define AD_VERSION (makeAdVersion(AD_MAJOR_VERSION, AD_MINOR_VERSION, AD_PATCH_VERSION))
+
+/**
+ * \typedef AdVersion
+ *
+ * `AdVersion` identifies the version of an Aideen library build.
+ */
+typedef uint64_t AdVersion;
+
+/**
+ * Pack the major, minor, and patch numbers into a single Aideen version code.
+ *
+ * \param major Major version of the Aideen build.
+ * \param minor Minor version of the Aideen build.
+ * \param patch Patch version of the Aideen build.
+ * \return Version code for the Aideen build.
+ */
+AdVersion makeAdVersion(AdVersionField major, AdVersionField minor, AdVersionField patch);
+
+/**
+ * Unpack the major number from an Aideen version code.
+ *
+ * \param version Aideen version code to unpack.
+ * \return Major version extracted from the version code.
+ */
+AdVersionField AdGetMajorVersion(AdVersion version);
+
+/**
+ * Unpack the minor number from an Aideen version code.
+ *
+ * \param version Aideen version code to unpack.
+ * \return Minor version extracted from the version code.
+ */
+AdVersionField AdGetMinorVersion(AdVersion version);
+
+/**
+ * Unpack the patch number from an Aideen verion code.
+ * \return Patch version extracted from the version code.
+ */
+AdVersionField AdGetPatchVersion(AdVersion version);
