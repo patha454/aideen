@@ -3,6 +3,7 @@ cmake_policy(VERSION 3.21)
 
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_C_STANDARD_REQUIRED True)
+set(CMAKE_EXPORT_COMPILE_COMMANDS True)
 
 set(AIDEEN_MAJOR_VERSION "0" CACHE STRING "Major version of this Aideen build.")
 set(AIDEEN_MINOR_VERSION "0" CACHE STRING "Minor version of this Aideen build.")
