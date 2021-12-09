@@ -19,31 +19,32 @@ typedef uint16_t AdVersionField;
 
 /**
  * \def AD_MAJOR_VERSION
- * 
+ *
  * Major version of the Aideen build.
  */
-#define AD_MAJOR_VERSION ((AdVersionField) @AIDEEN_MAJOR_VERSION@)
+#define AD_MAJOR_VERSION ((AdVersionField) @AIDEEN_MAJOR_VERSION @)
 
 /**
  * \def AD_MINOR_VERSION
- * 
+ *
  * Minor version of the Aideen build.
  */
-#define AD_MINOR_VERSION ((AdVersionField) @AIDEEN_MINOR_VERSION@)
+#define AD_MINOR_VERSION ((AdVersionField) @AIDEEN_MINOR_VERSION @)
 
 /**
  * \def AD_PATCH_VERSION
- * 
+ *
  * Patch version of the Aideen build.
  */
-#define AD_PATCH_VERSION ((AdVersionField) @AIDEEN_PATCH_VERSION@)
+#define AD_PATCH_VERSION ((AdVersionField) @AIDEEN_PATCH_VERSION @)
 
 /**
  * \def AD_VERSION
  *
  * Version code of the Aideen build.
  */
-#define AD_VERSION (makeAdVersion(AD_MAJOR_VERSION, AD_MINOR_VERSION, AD_PATCH_VERSION))
+#define AD_VERSION                                                             \
+  (makeAdVersion(AD_MAJOR_VERSION, AD_MINOR_VERSION, AD_PATCH_VERSION))
 
 /**
  * \typedef AdVersion
@@ -60,7 +61,8 @@ typedef uint64_t AdVersion;
  * \param patch Patch version of the Aideen build.
  * \return Version code for the Aideen build.
  */
-AdVersion makeAdVersion(AdVersionField major, AdVersionField minor, AdVersionField patch);
+AdVersion
+makeAdVersion(AdVersionField major, AdVersionField minor, AdVersionField patch);
 
 /**
  * Unpack the major number from an Aideen version code.
@@ -68,7 +70,8 @@ AdVersion makeAdVersion(AdVersionField major, AdVersionField minor, AdVersionFie
  * \param version Aideen version code to unpack.
  * \return Major version extracted from the version code.
  */
-AdVersionField AdGetMajorVersion(AdVersion version);
+AdVersionField
+AdGetMajorVersion(AdVersion version);
 
 /**
  * Unpack the minor number from an Aideen version code.
@@ -76,10 +79,12 @@ AdVersionField AdGetMajorVersion(AdVersion version);
  * \param version Aideen version code to unpack.
  * \return Minor version extracted from the version code.
  */
-AdVersionField AdGetMinorVersion(AdVersion version);
+AdVersionField
+AdGetMinorVersion(AdVersion version);
 
 /**
  * Unpack the patch number from an Aideen verion code.
  * \return Patch version extracted from the version code.
  */
-AdVersionField AdGetPatchVersion(AdVersion version);
+AdVersionField
+AdGetPatchVersion(AdVersion version);
