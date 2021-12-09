@@ -18,11 +18,11 @@ set(AIDEEN_DESCRIPTION "Force based closed loop control system.")
 
 project("aideen" VERSION ${AIDEEN_VERSION} DESCRIPTION ${AIDEEN_DESCRIPTION} LANGUAGES C)
 
-configure_file(version.h.in version.h)
+configure_file(src/version.h.in src/version.h)
 
 find_library(CBLAS_LIBRARY cblas REQUIRED)
 
-add_executable(${AIDEEN_TEST_EXECUTABLE} main.c version.c)
+add_executable(${AIDEEN_TEST_EXECUTABLE} src/main.c src/version.c)
 
 target_link_libraries(${AIDEEN_TEST_EXECUTABLE} PRIVATE ${CBLAS_LIBRARY})
 
