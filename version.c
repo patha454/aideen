@@ -11,20 +11,36 @@
 
 #include "version.h"
 
+/**
+ * \def MAJOR BITSHIFT
+ * 
+ * Bit shift distance to store and retrieve the major version field
+ * from an AdVersion.
+ */
+#define MAJOR_BITSHIFT (2 * sizeof(AdVersionField) * 8)
+
+/**
+ * \def MINOR_BITSHIFT
+ * 
+ * Bit shift distance to store and retrieve the minor version field
+ * from an AdVersion.
+ */
+#define MINOR_BITSHIFT (sizeof(AdVersionField) * 8)
+
 extern AdVersion makeAdVersion(AdVersionField major, AdVersionField minor, AdVersionField patch) {
     AdVersion version = 0;
-    version = ((AdVersion) major) << 32;
-    version |= ((AdVersion) minor) << 16;
+    version = ((AdVersion) major) << MAJOR_BITSHIFT;
+    version |= ((AdVersion) minor) << MINOR_BITSHIFT;
     version |= ((AdVersion) patch);
     return version;
 }
 
 extern AdVersionField AdGetMajorVersion(AdVersion version) {
-    return (version >> 32) & 0xffffu;
+    return (version >> MAJOR_BITSHIFT) & 0xffffu;
 }
 
 extern AdVersionField AdGetMinorVersion(AdVersion version) {
-    return (version >> 16) & 0xffffu;
+    return (version >> MINOR_BITSHIFT) & 0xffffu;
 }
 
 extern AdVersionField AdGetPatchVersion(AdVersion version) {
