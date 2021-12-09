@@ -9,7 +9,7 @@
  * \copyright BSL-1.0.
  */
 
-#include "version.h"
+#include "src/version.h"
 
 /**
  * \def MAJOR BITSHIFT

@@ -22,21 +22,28 @@ typedef uint16_t AdVersionField;
  *
  * Major version of the Aideen build.
  */
-#define AD_MAJOR_VERSION ((AdVersionField) @AIDEEN_MAJOR_VERSION @)
+// clang-format off
+#define AD_MAJOR_VERSION ((AdVersionField) @AIDEEN_MAJOR_VERSION@)
+// clang-format on
 
 /**
  * \def AD_MINOR_VERSION
  *
  * Minor version of the Aideen build.
  */
-#define AD_MINOR_VERSION ((AdVersionField) @AIDEEN_MINOR_VERSION @)
+// clang-format off
+#define AD_MINOR_VERSION ((AdVersionField) @AIDEEN_MINOR_VERSION@)
+// clang-format on
 
 /**
  * \def AD_PATCH_VERSION
  *
  * Patch version of the Aideen build.
  */
-#define AD_PATCH_VERSION ((AdVersionField) @AIDEEN_PATCH_VERSION @)
+// clang-format off
+#define AD_PATCH_VERSION ((AdVersionField) @AIDEEN_PATCH_VERSION@)
+// clang-format on
+
 
 /**
  * \def AD_VERSION
