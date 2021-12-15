@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 cmake_policy(VERSION 3.21)
 
 set(AIDEEN_TEST_EXECUTABLE "aideen_test")
+set(AIDEEN_LINTER ${AIDEEN_TEST_EXECUTABLE}_lint)
 
 set(AIDEEN_DESCRIPTION "Force based closed loop control system.")
 
@@ -17,13 +18,34 @@ set(
     "${AIDEEN_MAJOR_VERSION}.${AIDEEN_MINOR_VERSION}.${AIDEEN_PATCH_VERSION}"
 )
 
+find_program(CLANG_TIDY clang-tidy)
+find_program(CLANG_FORMAT clang-format)
+
 project("aideen" VERSION ${AIDEEN_VERSION} DESCRIPTION ${AIDEEN_DESCRIPTION} LANGUAGES C)
 
 configure_file(src/version.h.in src/version.h)
 
 find_library(CBLAS_LIBRARY cblas REQUIRED)
 
-add_executable(${AIDEEN_TEST_EXECUTABLE} src/main.c src/version.c)
+add_executable(${AIDEEN_TEST_EXECUTABLE})
+target_sources(${AIDEEN_TEST_EXECUTABLE}
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/src/main.c
+        ${PROJECT_SOURCE_DIR}/src/version.c
+        ${CMAKE_BINARY_DIR}/src/version.h
+)
+
+if(NOT ${CLANG_TIDY} STREQUAL "CLANG_TIDY-NOTFOUND")
+    add_custom_target(
+        ${AIDEEN_LINTER}
+        COMMAND ${CLANG_TIDY} --fix-errors ${PROJECT_SOURCE_DIR}/src/main.c -p ${CMAKE_BINARY_DIR}/. --config-file=${PROJECT_SOURCE_DIR}/.clang-tidy
+        COMMENT "Linting Aideen with Clang Tidy"
+        VERBATIM
+        USES_TERMINAL
+    )
+    add_dependencies(${AIDEEN_TEST_EXECUTABLE} ${AIDEEN_LINTER})
+    
+endif()
 
 target_link_libraries(${AIDEEN_TEST_EXECUTABLE} PRIVATE ${CBLAS_LIBRARY})
 

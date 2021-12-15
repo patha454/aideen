@@ -1,7 +1,7 @@
 #include "version.h"
 #include <stdio.h>
 
-void
+int
 main(void)
 {
   AdVersion version = AD_VERSION;
