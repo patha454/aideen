@@ -19,4 +19,13 @@ set(
 
 project("aideen" VERSION ${AIDEEN_VERSION} DESCRIPTION ${AIDEEN_DESCRIPTION} LANGUAGES C)
 
-add_subdirectory(src)
+configure_file(src/version.h.in src/version.h)
+
+find_library(CBLAS_LIBRARY cblas REQUIRED)
+
+add_executable(${AIDEEN_TEST_EXECUTABLE} src/main.c src/version.c)
+
+target_link_libraries(${AIDEEN_TEST_EXECUTABLE} PRIVATE ${CBLAS_LIBRARY})
+
+target_include_directories(${AIDEEN_TEST_EXECUTABLE} PUBLIC ${CMAKE_BINARY_DIR}/src)
+

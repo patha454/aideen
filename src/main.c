@@ -1,4 +1,4 @@
-#include "src/version.h"
+#include "version.h"
 #include <stdio.h>
 
 void
