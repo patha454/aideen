@@ -28,12 +28,17 @@ configure_file(src/version.h.in src/version.h)
 find_library(CBLAS_LIBRARY cblas REQUIRED)
 
 add_executable(${AIDEEN_TEST_EXECUTABLE})
+
 target_sources(${AIDEEN_TEST_EXECUTABLE}
     PRIVATE
         ${PROJECT_SOURCE_DIR}/src/main.c
         ${PROJECT_SOURCE_DIR}/src/version.c
         ${CMAKE_BINARY_DIR}/src/version.h
 )
+
+target_link_libraries(${AIDEEN_TEST_EXECUTABLE} PRIVATE ${CBLAS_LIBRARY})
+
+target_include_directories(${AIDEEN_TEST_EXECUTABLE} PUBLIC ${CMAKE_BINARY_DIR}/src)
 
 if(NOT ${CLANG_TIDY} STREQUAL "CLANG_TIDY-NOTFOUND")
     add_custom_target(
@@ -46,8 +51,3 @@ if(NOT ${CLANG_TIDY} STREQUAL "CLANG_TIDY-NOTFOUND")
     add_dependencies(${AIDEEN_TEST_EXECUTABLE} ${AIDEEN_LINTER})
     
 endif()
-
-target_link_libraries(${AIDEEN_TEST_EXECUTABLE} PRIVATE ${CBLAS_LIBRARY})
-
-target_include_directories(${AIDEEN_TEST_EXECUTABLE} PUBLIC ${CMAKE_BINARY_DIR}/src)
-
