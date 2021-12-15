@@ -13,7 +13,7 @@
 /**
  * \typedef AdVersionField
  *
- * Field used for storing the major, minor, or patch number of n Aideen build.
+ * Field used for storing the major, minor, or patch number of an Aideen build.
  */
 typedef uint16_t AdVersionField;
 
