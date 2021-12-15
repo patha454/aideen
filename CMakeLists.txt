@@ -3,6 +3,7 @@ cmake_policy(VERSION 3.21)
 
 set(AIDEEN_TEST_EXECUTABLE "aideen_test")
 set(AIDEEN_LINTER ${AIDEEN_TEST_EXECUTABLE}_lint)
+set(AIDEEN_STYLER ${AIDEEN_TEST_EXECUTABLE}_style)
 
 set(AIDEEN_DESCRIPTION "Force based closed loop control system.")
 
@@ -41,13 +42,23 @@ target_link_libraries(${AIDEEN_TEST_EXECUTABLE} PRIVATE ${CBLAS_LIBRARY})
 target_include_directories(${AIDEEN_TEST_EXECUTABLE} PUBLIC ${CMAKE_BINARY_DIR}/src)
 
 if(NOT ${CLANG_TIDY} STREQUAL "CLANG_TIDY-NOTFOUND")
+    add_custom_target( 
+        ${AIDEEN_LINTER} 
+        COMMAND ${CLANG_TIDY} --fix-errors ${PROJECT_SOURCE_DIR}/src/main.c -p ${CMAKE_BINARY_DIR}/. --config-file=${PROJECT_SOURCE_DIR}/.clang-tidy 
+        COMMENT "Linting Aideen with Clang Tidy" 
+        VERBATIM 
+        USES_TERMINAL 
+    ) 
+    add_dependencies(${AIDEEN_TEST_EXECUTABLE} ${AIDEEN_LINTER}) 
+endif() 
+ 
+if(NOT ${CLANG_FORMAT} STREQUAL "CLANG_FORMAT-NOTFOUND")
     add_custom_target(
-        ${AIDEEN_LINTER}
-        COMMAND ${CLANG_TIDY} --fix-errors ${PROJECT_SOURCE_DIR}/src/main.c -p ${CMAKE_BINARY_DIR}/. --config-file=${PROJECT_SOURCE_DIR}/.clang-tidy
-        COMMENT "Linting Aideen with Clang Tidy"
+        ${AIDEEN_STYLER}
+        COMMAND ${CLANG_FORMAT} ${PROJECT_SOURCE_DIR}/src/main.c -Werror -i --style=file
+        COMMENT "Formating Aideen with Clang Format"
         VERBATIM
         USES_TERMINAL
     )
-    add_dependencies(${AIDEEN_TEST_EXECUTABLE} ${AIDEEN_LINTER})
-    
+    add_dependencies(${AIDEEN_TEST_EXECUTABLE} ${AIDEEN_STYLER})
 endif()
